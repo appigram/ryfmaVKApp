@@ -1,0 +1,16 @@
+.paid-users .Avatar .Avatar__children {
+  padding: 14px;
+  background-color: #FFBF30;
+  border: 2px solid #FFFFFF;
+  left: 46.5%;
+  width: 0!important;
+  height: 0!important;
+  bottom: -14px;
+  top: auto;
+}
+
+.get-started-block {
+  background-color: #cef;
+  text-align: center;
+  padding: 3rem 0;
+}
