@@ -273,6 +273,7 @@ class ContestPage extends Component {
           isJury={isJury}
           juryId={currUserId}
           currUser={currUser}
+          go={this.props.go}
         />
       </Div>
     </Group>)

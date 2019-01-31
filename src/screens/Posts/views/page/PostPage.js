@@ -171,7 +171,7 @@ class PostPage extends Component {
               <div key={0} className='like-block'>
                 <div
                   className={`post-like-label ui label basic ${postLiked ? 'liked' : ''}`}
-                  onClick={this.setNewLike}>
+                >
                   {postLiked ? (
                     <Icon24Like />
                   ) : (
