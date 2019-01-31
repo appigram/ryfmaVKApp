@@ -6,9 +6,11 @@ import {
   GET_POSTS_CONTENTS
 } from './posts.type'
 
-export const getPosts = ({type, userId, albumId, tagId, festId, withImage, duration, personal, keyword, skip, limit, force}) => {
+export const getPosts = ({type, userId, albumId, tagId, festId, withImage, duration, personal, keyword, skip, limit, force, replaceFeed}) => {
   return (dispatch, getState) => {
-    dispatch({ type: GET_POSTS.PENDING })
+    console.log('New action!')
+    console.log('replaceFeed: ', replaceFeed)
+    dispatch({ type: GET_POSTS.PENDING, replaceFeed })
 
     return client.query({
       query: getLatestPosts,
@@ -20,7 +22,7 @@ export const getPosts = ({type, userId, albumId, tagId, festId, withImage, durat
         festId,
         withImage,
         duration,
-        personal: personal || false,
+        personal,
         keyword,
         skip,
         limit
@@ -31,15 +33,13 @@ export const getPosts = ({type, userId, albumId, tagId, festId, withImage, durat
       dispatch({
         type: GET_POSTS.SUCCESS,
         payload: data.data.posts,
-        postType: type,
-        postDuration: duration,
+        replaceFeed,
         error: ''
       })
     })
     .catch(error => {
       dispatch({
         type: GET_POSTS.ERROR,
-        postType: type,
         payload: error.message
       })
     })

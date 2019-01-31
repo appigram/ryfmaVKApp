@@ -4,9 +4,12 @@ import { bindActionCreators } from 'redux'
 import { getContestInfo } from '../../contests.action'
 import Loader from '../../../../components/Loader'
 import ContestNotFound from '../ContestNotFound'
+import ContestPosts from '../ContestPosts'
 import { parseText } from '../../../../utils/Helpers'
 
-import { Button, Div, Link, Tabs, TabsItem } from '@vkontakte/vkui'
+import { Group, Button, Div, Link, Tabs, TabsItem } from '@vkontakte/vkui'
+
+import '../styles.css'
 
 class ContestPage extends Component {
   constructor (props) {
@@ -22,7 +25,7 @@ class ContestPage extends Component {
 
   componentWillMount () {
     console.log('componentWillMount PostPage')
-    this.props.getContestInfo({ slug: this.props.slug, festId: this.props.festId })
+    this.props.getContestInfo({ slug: this.props.contestSlug, festId: this.props.contestId })
   }
 
   changeSort = (sortType) => (e) => {
@@ -62,9 +65,9 @@ class ContestPage extends Component {
   }
 
   render () {
-    const { contest, isPendingContent } = this.props
+    const { contest, isPendingContest } = this.props
 
-    if (isPendingContent) {
+    if (isPendingContest) {
       return (<Loader />)
     }
 
@@ -86,7 +89,7 @@ class ContestPage extends Component {
     const toDate = new Date(fest.toDate)
     const currUserId = fetchedUser ? fetchedUser._id : null
     const currUser = fetchedUser
-    const juryIds = contest.juryData.map(jury => jury._id)
+    const juryIds = fest.juryData.map(jury => jury._id)
     const isJury = juryIds.includes(currUserId)
 
     const maxChars = 412
@@ -136,8 +139,8 @@ class ContestPage extends Component {
 
     const isFinal = activeLevel === fest.levels
 
-    return (
-      <Div id={contest._id} className='fest-page'>
+    return (<Group id={contest._id}>
+      <Div className='fest-page'>
         {fest.coverImg &&
           <div className='ui image'>
             <img
@@ -262,18 +265,17 @@ class ContestPage extends Component {
           </Form.Group>
           <Button primary className='level-done' onClick={this.levelDone(activeLevel)}>{t('levelDone')}</Button>
         </Form> */}
-        {/* <PostFilters
+        <ContestPosts
           fest={fest}
           currentLevel={activeLevel}
           isMultiLevel={levels.length > 1}
           isFinal={isFinal}
           isJury={isJury}
           juryId={currUserId}
-          isMobile={isMobileMode}
           currUser={currUser}
-        /> */}
+        />
       </Div>
-    )
+    </Group>)
   }
 }
 
@@ -281,8 +283,8 @@ function mapStateToProps (state) {
   console.log('mapStateToProps')
   console.log(state)
   return {
-    contest: state.contests.contest,
-    isPendingContent: state.contests.isPendingContent
+    contest: state.contests.contestInfo,
+    isPendingContest: state.contests.isPendingContest
   }
 }
 

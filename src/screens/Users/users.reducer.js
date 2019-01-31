@@ -7,7 +7,7 @@ import {
 } from './users.type'
 
 const initialState = {
-  user: {},
+  user: null,
   posts: [],
   followers: [],
   following: [],

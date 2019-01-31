@@ -18,7 +18,7 @@ class LatestPosts extends Component {
 
   componentWillMount () {
     console.log('componentWillMount')
-    this.props.getPosts({type: 'latest', force: true})
+    this.props.getPosts({type: 'latest', replaceFeed: true})
   }
 
   refetchData = () => {

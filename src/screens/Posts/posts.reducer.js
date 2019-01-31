@@ -4,12 +4,9 @@ import {
 } from './posts.type'
 
 const initialState = {
-  latestPosts: [],
-  bestPosts: [],
-  bestDuration: 'day',
-  postInfo: {},
-  isPendingLatestPosts: false,
-  isPendingBestPosts: false,
+  posts: [],
+  postInfo: null,
+  isPendingPosts: false,
   isPendingContentsPostInfo: false,
   error: ''
 }
@@ -19,27 +16,23 @@ const latestPostsReducer = (state = initialState, action = {}) => {
     case GET_POSTS.PENDING:
       return {
         ...state,
-        latestPosts: state.latestPosts,
-        bestPosts: state.bestPosts,
+        posts: action.replaceFeed ? [] : state.posts,
         error: '',
-        isPendingLatestPosts: true
+        isPendingPosts: true
       }
     case GET_POSTS.SUCCESS:
       return {
         ...state,
-        latestPosts: action.postType === 'latest' ? [...state.latestPosts, ...action.payload] : state.latestPosts,
-        bestPosts: action.postType === 'popular' && action.postDuration === state.bestDuration ? [...state.bestPosts, ...action.payload] : action.payload,
-        bestDuration: action.postDuration,
+        posts: action.replaceFeed ? action.payload : [...state.posts, ...action.payload],
         error: '',
-        isPendingLatestPosts: false,
-        isPendingBestPosts: false
+        isPendingPosts: false
       }
     case GET_POSTS.ERROR:
       return {
         ...state,
+        posts: [],
         error: action.payload,
-        isPendingLatestPosts: false,
-        isPendingBestPosts: false
+        isPendingPosts: false
       }
     case GET_POSTS_CONTENTS.PENDING:
       return {

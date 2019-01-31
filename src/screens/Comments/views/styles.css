@@ -1,0 +1,15 @@
+.comments-list h3 {
+  margin: 0;
+}
+
+.comment-item {
+
+}
+
+.comment-item .content {
+  padding-top: 0;
+}
+
+.comment-item .content p {
+  margin: 0;
+}

@@ -4,7 +4,7 @@ import { Group, Cell } from '@vkontakte/vkui'
 const PostNotFound = ({goToFunc}) => (
   <Group>
     <Cell>
-      К сожалению, конкурс не найден
+      К сожалению, пользователь не найден
     </Cell>
   </Group>
 )

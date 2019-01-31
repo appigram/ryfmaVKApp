@@ -168,3 +168,53 @@ export const getContest = gql`
     }
   }
 `
+
+export const getFestPosts = gql`
+  query getFestPosts($festId: String!, $keyword: String, $city: String, $filterType: String, $sortType: String, $level: Int, $skip: Int, $limit: Int) {
+    festPosts(festId: $festId, keyword: $keyword, city: $city, filterType: $filterType, sortType: $sortType, level: $level, skip: $skip, limit: $limit) {
+      _id
+      festId
+      postId
+      userId
+      city
+      likeCount
+
+      author {
+        _id
+        username
+        roles
+        profile {
+          name
+          image
+        }
+      }
+
+      post {
+        _id
+        createdAt
+        title
+        slug
+        excerpt
+        htmlBody
+        coverImg
+        likeCount
+        liked
+        currUserLikes
+        commentsCount
+        userId
+        isAdultContent
+      }
+
+      juryStats {
+        userId
+        rating
+      }
+
+      stats {
+        juryCount
+        juryAverage
+        juryTotal
+      }
+    }
+  }
+`

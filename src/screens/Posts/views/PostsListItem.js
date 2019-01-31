@@ -12,7 +12,6 @@ class PostsListItem extends Component {
 
   render () {
     const { post } = this.props
-    const coverImg = post.coverImg ? post.coverImg.replace('_full_', '_thumb_') : null
     if (!post.author) return null
     const excerpt = post.excerpt// .replace(/<br\s*\/>/gi, '\n\r').replace(/<p>/gi, '').replace(/<\/p>/gi, '')
     return (<Group id={post._id} className='post-list-item'>
@@ -24,25 +23,27 @@ class PostsListItem extends Component {
         data-view='postpage'
         data-panel='postpage'
         data-postid={post._id}
+        data-headertitle={post.title}
       >
         {post.title}
       </Cell>
       <Div
         className='content'
-        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
         onClick={this.props.go}
         data-view='postpage'
         data-panel='postpage'
         data-postid={post._id}
+        data-headertitle={post.title}
       >
+        {post.coverImg && <Avatar type='image' src={post.coverImg} className='post-image' />}
         <div dangerouslySetInnerHTML={{ __html: excerpt }} />
-        {coverImg && <Avatar size={80} type='image' src={coverImg} />}
       </Div>
       <Cell
         onClick={this.props.go}
         data-view='postpage'
         data-panel='postpage'
         data-postid={post._id}
+        data-headertitle={post.title}
       >
         <Link onClick={this.goToPost}>Читать далее</Link>
       </Cell>

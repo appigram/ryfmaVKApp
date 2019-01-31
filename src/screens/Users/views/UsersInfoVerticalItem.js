@@ -71,11 +71,35 @@ class UsersInfoItem extends Component {
       followButton = null
     }
 
-    return (<Div id={user._id} style={{ textAlign: 'center', marginTop: 8 }}>
-      <Avatar size={80} src={user.profile.image} style={{ margin: '0 auto' }}>
+    followButton = null
+    return (<Div
+      id={user._id} style={{ textAlign: 'center', marginTop: 8 }}
+      className='user-info-item'
+    >
+      <Avatar
+        size={80}
+        src={user.profile.image}
+        style={{ margin: '0 auto' }}
+        onClick={this.props.go}
+        data-view='userpage'
+        data-panel='userpage'
+        data-userid={user._id}
+        data-username={user.username}
+        data-headertitle={user.profile.name}
+      >
         <Icon24Favorite fill='#FFFFFF' />
       </Avatar>
-      <h2 style={{ marginBottom: '8px' }}>{user.profile.name}</h2>
+      <h2
+        style={{ marginBottom: '8px' }}
+        onClick={this.props.go}
+        data-view='userpage'
+        data-panel='userpage'
+        data-userid={user._id}
+        data-username={user.username}
+        data-headertitle={user.profile.name}
+      >
+        {user.profile.name}
+      </h2>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '12px' }}>
         <span style={{ margin: '0 8px' }}>
           <Icon24Copy />

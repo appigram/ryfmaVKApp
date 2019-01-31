@@ -19,22 +19,23 @@ class LatestPosts extends Component {
 
   componentWillMount () {
     console.log('componentWillMount')
-    this.props.getPosts({type: 'popular', duration: 'day', force: true})
+    this.props.getPosts({type: 'popular', duration: 'day', replaceFeed: true})
   }
 
-  fetchMorePosts = (activeTab) => {
+  fetchMorePosts = ({ activeTab, replaceFeed = false }) => {
     const { bestPosts } = this.props
     this.props.getPosts({
       type: 'popular',
       duration: activeTab,
       skip: bestPosts.length,
+      replaceFeed,
       limit: 15
     })
   }
 
   changeTab = (activeTab) => () => {
     this.setState({ activeTab })
-    this.fetchMorePosts(activeTab)
+    this.fetchMorePosts(activeTab, true)
   }
 
   render () {

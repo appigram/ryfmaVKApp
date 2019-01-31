@@ -12,46 +12,47 @@ import Icon28Write from '@vkontakte/icons/dist/28/write'
 import Icon28Favorite from '@vkontakte/icons/dist/28/favorite'
 import Icon28User from '@vkontakte/icons/dist/28/user'
 
-import MyFeed from './screens/Posts/views/feeds/MyFeed'
-import Latest from './screens/Posts/views/feeds/Latest'
-import Popular from './screens/Posts/views/feeds/Popular'
+import PostsList from './screens/Posts/views/PostsList'
 import Search from './screens/Search/views/SearchPage'
 import Contests from './screens/Contests/views/Contests'
 
 import PostPage from './screens/Posts/views/page/PostPage'
 import ContestPage from './screens/Contests/views/page/ContestPage'
+import UserPage from './screens/Users/views/page/UserPage'
 
 // import Editor from './screens/Editor'
 // import UserProfile from './screens/UserProfile'
 // import About from './screens/About'
 
 class App extends React.Component {
-	constructor(props) {
-		super(props)
-
-		this.state = {
+  constructor (props) {
+    super(props)
+    this.state = {
       activeStory: 'epicPages',
-		 	activeView: 'feed',
+      activeView: 'feed',
       activePanel: 'feed',
       activeTab: 'latest',
       epicTab: 'feed',
-			fetchedUser: null,
-      userInfoDenied: false,
-		}
-	}
+      username: 'polina',
+      headerModalTitle: 'Полина (Pola) Шибеева',
+      popularTab: 'day',
+      fetchedUser: null,
+      userInfoDenied: false
+    }
+  }
 
-	componentDidMount() {
+  componentDidMount () {
     this._isMounted = true
-    this.getUserInfo()
-		this.getTheme()
-	}
+    // this.getUserInfo()
+    // this.getTheme()
+  }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     DataManager.clear()
     this._isMounted = false
   }
 
-  getUserInfo() {
+  getUserInfo = () => {
     VKConnect.subscribe(e => {
       switch (e.detail.type) {
         case 'VKWebAppGetUserInfoResult':
@@ -62,7 +63,7 @@ class App extends React.Component {
           break
         default:
           this.setState({ activeTab: 'latest' })
-          //console.log(e.detail.type)
+          // console.log(e.detail.type)
           break
       }
     })
@@ -80,40 +81,80 @@ class App extends React.Component {
           document.body.attributes.setNamedItem(schemeAttribute)
           break
         default:
-          //console.log(e.detail.type)
+          // console.log(e.detail.type)
           break
       }
     })
   }
 
   go = (e) => {
-    const { view, panel, postid, festid } = e.currentTarget.dataset
-    const { activeView, activeTab, activePanel } = this.state
-    this.setState({
+    const { view, panel, postid, contestid, contestslug, userid, username, headertitle } = e.currentTarget.dataset
+    const { activeStory, activeView, activeTab, activePanel } = this.state
+    console.log('New params: ', e.currentTarget.dataset)
+    let newState = {
       activeStory: 'modalPages',
-      activeView: view,
       activeTab: null,
-      postId: postid,
-      festId: festid,
-      returnStory: 'epicPages',
+      returnStory: activeStory === 'modalPages' ? 'modalPages' : 'epicPages',
       returnView: activeView,
       returnPanel: activePanel,
-      returnTab: activeTab
-    })
+      returnTab: activeTab,
+    }
 
     if (panel) {
-      this.setState({ activePanel: panel })
+      newState = {
+        ...newState,
+        activePanel: panel
+      }
     }
+
+    if (view) {
+      newState = {
+        ...newState,
+        activeView: view
+      }
+    }
+
+    if (postid) {
+      newState = {
+        ...newState,
+        postId: postid,
+      }
+    }
+
+    if (contestid) {
+      newState = {
+        ...newState,
+        contestId: contestid,
+        contestSlug: contestslug,
+      }
+    }
+
+    if (userid) {
+      newState = {
+        ...newState,
+        userId: userid,
+        username: username,
+      }
+    }
+
+    if (headertitle) {
+      newState = {
+        ...newState,
+        headerModalTitle: headertitle
+      }
+    }
+
+    this.setState(newState)
   }
 
   returnTo = () => {
     const { returnStory, returnView, returnPanel, returnTab } = this.state
     console.log('returnTo: ', this.state)
     this.setState({
-      activeStory: returnStory,
-      activeView: returnView,
-      activePanel: returnPanel,
-      activeTab: returnTab,
+      activeStory: returnStory || 'epicPages',
+      activeView: returnView || 'feed',
+      activePanel: returnPanel || 'feed',
+      activeTab: returnTab || 'latest',
       returnStory: null,
       returnView: null,
       returnPanel: null,
@@ -121,7 +162,7 @@ class App extends React.Component {
     })
   }
 
-  onStoryChange = (activeView) => (e) =>{
+  onStoryChange = (activeView) => (e) => {
     const { story, epictab } = e.currentTarget.dataset
     console.log('story change', e.currentTarget.dataset)
     if (story === 'epicPages') {
@@ -152,24 +193,24 @@ class App extends React.Component {
             data-story='epicPages'
             data-epictab='search'
           ><Icon28Search /></TabbarItem>
-          <TabbarItem
+        {/* <TabbarItem
             onClick={this.onStoryChange('write')}
             selected={this.state.epicTab === 'write'}
             data-story='epicPages'
             data-epictab='write'
-          ><Icon28Write/></TabbarItem>
+          ><Icon28Write/></TabbarItem> */}
           <TabbarItem
             onClick={this.onStoryChange('contests')}
             selected={this.state.epicTab === 'contests'}
             data-story='epicPages'
             data-epictab='contests'
           ><Icon28Favorite/></TabbarItem>
-          <TabbarItem
+        {/* <TabbarItem
             onClick={this.onStoryChange('user')}
             selected={this.state.epicTab === 'user'}
             data-story='epicPages'
             data-epictab='user'
-          ><Icon28User /></TabbarItem>
+          ><Icon28User /></TabbarItem> */}
         </Tabbar>
       }
     >
@@ -215,9 +256,33 @@ class App extends React.Component {
                 </HorizontalScroll>
               </Tabs>
             </FixedLayout>
-            {this.state.fetchedUser && this.state.activeTab === 'myfeed' && <MyFeed go={this.go} />}
-            {this.state.activeTab === 'latest' && <Latest go={this.go} />}
-            {this.state.activeTab === 'popular' && <Popular go={this.go} />}
+            {this.state.fetchedUser && this.state.activeTab === 'myfeed' &&
+              <Root activeView='latest'>
+                <View id='latest' activePanel='latest'>
+                  <Panel id='latest'>
+                    <PostsList go={this.go} type='myfeed' personal />
+                  </Panel>
+                </View>
+              </Root>
+            }
+            {this.state.activeTab === 'latest' &&
+              <Root activeView='latest'>
+                <View id='latest' activePanel='latest'>
+                  <Panel id='latest'>
+                    <PostsList go={this.go} type='latest' />
+                  </Panel>
+                </View>
+              </Root>
+            }
+            {this.state.activeTab === 'popular' &&
+              <Root activeView='latest'>
+                <View id='latest' activePanel='latest'>
+                  <Panel id='latest'>
+                    <PostsList go={this.go} type='popular' duration={this.state.popularTab} />
+                  </Panel>
+                </View>
+              </Root>
+            }
           </Panel>
         </View>
         <View id='search' activePanel='search'>
@@ -226,11 +291,11 @@ class App extends React.Component {
             <Search go={this.go} />
           </Panel>
         </View>
-        <View id='write' activePanel='write'>
+        {/* <View id='write' activePanel='write'>
           <Panel id='write'>
             <PanelHeader>Создание поста</PanelHeader>
           </Panel>
-        </View>
+        </View> */}
         <View id='contests' activePanel='contests'>
           <Panel id='contests'>
             <PanelHeader>Конкурсы</PanelHeader>
@@ -250,9 +315,9 @@ class App extends React.Component {
               left={<HeaderButton onClick={this.returnTo}>{osname === IOS ? <Icon28ChevronBack /> : <Icon24Back />}</HeaderButton>}
               addon={<HeaderButton onClick={this.returnTo}>Назад</HeaderButton>}
             >
-              Запись
+              {this.state.headerModalTitle}
             </PanelHeader>
-            <PostPage fetchedUser={fetchedUser} postId={this.state.postId} />
+            <PostPage fetchedUser={fetchedUser} postId={this.state.postId} go={this.go} />
           </Panel>
         </View>
         <View id='contestpage' activePanel={this.state.activePanel}>
@@ -261,9 +326,20 @@ class App extends React.Component {
               left={<HeaderButton onClick={this.returnTo}>{osname === IOS ? <Icon28ChevronBack /> : <Icon24Back />}</HeaderButton>}
               addon={<HeaderButton onClick={this.returnTo}>Назад</HeaderButton>}
             >
-              Конкурс
+              {this.state.headerModalTitle}
             </PanelHeader>
-            <ContestPage fetchedUser={fetchedUser} festId={this.state.festId} />
+            <ContestPage fetchedUser={fetchedUser} contestSlug={this.state.contestSlug} contestId={this.state.contestId} go={this.go} />
+          </Panel>
+        </View>
+        <View id='userpage' activePanel={this.state.activePanel}>
+          <Panel id='userpage'>
+            <PanelHeader
+              left={<HeaderButton onClick={this.returnTo}>{osname === IOS ? <Icon28ChevronBack /> : <Icon24Back />}</HeaderButton>}
+              addon={<HeaderButton onClick={this.returnTo}>Назад</HeaderButton>}
+            >
+              {this.state.headerModalTitle}
+            </PanelHeader>
+            <UserPage fetchedUser={fetchedUser} username={this.state.username} userId={this.state.userId} go={this.go} replaceFeed />
           </Panel>
         </View>
       </Root>

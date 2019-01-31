@@ -2,6 +2,17 @@
   padding-top: 0;
   padding-bottom: 0;
 }
+.post-list-item .post-image {
+  display: block;
+  width: 100%;
+}
+.post-list-item .post-image img {
+  display: block;
+  border-radius: 12px!important;
+  width: 100%!important;
+  height: auto!important;
+  margin-bottom: 0.75rem;
+}
 
 .post-tags {
   margin-top: 1em;
@@ -154,9 +165,16 @@
     margin-left: .5em
 }
 
+.user-info-wrapper {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .user-info-item.Cell .Tappable.Cell__in {
   padding: 0 4px;
-  margin-top: 1rem;
+}
+.user-info-item.Cell .Tappable .Cell__main {
+  padding: 0px 8px 0px 0;
 }
 
 .pulse-ring {

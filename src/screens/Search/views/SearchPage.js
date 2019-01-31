@@ -82,7 +82,7 @@ class SearchPage extends Component {
         {!keyword && <div className='paid-users' style={{ marginTop: 56 }}>
           <Group title='Рекомендуем подписаться'>
             {paidUsers.map(user => {
-              return (<UsersInfoVerticalItem user={user} />)
+              return (<UsersInfoVerticalItem user={user} go={this.props.go} />)
             })}
           </Group>
           <div className='get-started-block'>
@@ -113,7 +113,10 @@ class SearchPage extends Component {
 
         {users.length > 0 && activeTab === 'users' &&
           <List>
-            {users.map(user => <UsersInfoItem key={user._id} user={user} go={this.props.go} />)}
+            {users.map(user => (<Div className='user-info-wrapper'>
+              <UsersInfoItem key={user._id} user={user} go={this.props.go} />
+            </Div>)
+            )}
             <Div>
               <Button size="xl" level="secondary" onClick={this.fetchMoreUser}>Загрузить еще</Button>
             </Div>

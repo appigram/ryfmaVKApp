@@ -14,3 +14,110 @@
   text-align: center;
   padding: 3rem 0;
 }
+
+.user-page {
+    text-align: center;
+}
+.user-page .Avatar img {
+    margin: 0 auto;
+    border: 2px solid #3bce60;
+    padding: 3px;
+    background-color: #fff;
+}
+
+.user-page h1 {
+  margin-bottom: 8px;
+}
+
+.user-page h1 .Icon {
+  display: inline-block;
+  margin-left: 6px;
+}
+
+.user-page h1 .Icon svg {
+  color: #40AEF3;
+}
+
+.user-page .karma {
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.user-page .karma .Icon {
+  display: inline-block;
+  vertical-align: -10%;
+  margin-right: 4px;
+}
+
+.user-page .website-city {
+  margin-bottom: 16px;
+}
+
+.user-page .website-city .user-website {
+  margin-bottom: 8px;
+}
+
+.user-page .website-city a {
+  color: #222;
+  text-decoration: none;
+}
+
+.user-page .website-city .Icon {
+  display: inline-block;
+  vertical-align: -30%;
+}
+
+.user-page .website-city .Icon svg {
+  margin-right: 6px;
+}
+
+.user-page .meta .item {
+  display: inline-block;
+  margin: 0 12px;
+}
+
+.user-page .meta .item svg {
+  color: #999999;
+}
+
+.user-page .extra {
+  margin-top: 1rem;
+}
+.user-page .extra .slide-down-button .Icon {
+  margin: 0 auto;
+}
+
+.user-page .extra .slide-down-hidden {
+    height: 0;
+    display: none;
+    opacity: 0;
+    transition: height 1s linear
+}
+
+.user-page .extra .slide-down-hidden.open {
+    height: 100%;
+    display: block;
+    opacity: 1
+}
+
+.user-page .user-stats {
+  margin: 0.5rem 0;
+}
+
+.user-page .user-stats .item {
+  flex-shrink: 0;
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #777777;
+  font-size: 0.95rem;
+}
+.user-page .user-stats .item:first-child {
+  margin-left: 8px;
+}
+.user-page .user-stats .item b {
+  display: block;
+  color: #323232;
+  font-size: 1.2rem;
+}

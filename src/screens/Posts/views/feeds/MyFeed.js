@@ -18,7 +18,7 @@ class MyFeed extends Component {
 
   componentWillMount () {
     console.log('componentWillMount')
-    this.props.getPosts({type: 'following', userId: this.state.fetchedUser, force: true})
+    this.props.getPosts({type: 'following', userId: this.state.fetchedUser, replaceFeed: true})
   }
 
   refetchData = () => {

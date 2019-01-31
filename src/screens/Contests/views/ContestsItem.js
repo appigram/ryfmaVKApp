@@ -22,6 +22,8 @@ class ContestsItem extends Component {
       data-view='contestpage'
       data-panel='contestpage'
       data-contestid={contest._id}
+      data-contestslug={contest.slug}
+      data-headertitle={contest.title}
     >
       <img src={avatar} style={{ width: '100%', borderRadius: '6px' }} />
       <h1 style={{ marginBottom: 0 }}>{contest.title}</h1>

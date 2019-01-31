@@ -1,13 +1,15 @@
 import {
   GET_CONTESTS,
-  GET_CONTEST_INFO
+  GET_CONTEST_INFO,
+  GET_CONTEST_POSTS
 } from './contests.type'
 
 const initialState = {
-  contest: {},
+  contestInfo: null,
   contests: [],
   isPendingContest: false,
   isPendingContests: false,
+  isPendingContestPosts: false,
   error: ''
 }
 
@@ -16,7 +18,7 @@ const contestsReducer = (state = initialState, action = {}) => {
     case GET_CONTESTS.PENDING:
       return {
         ...state,
-        contest: [],
+        contests: [],
         error: '',
         isPendingContests: true
       }
@@ -36,14 +38,16 @@ const contestsReducer = (state = initialState, action = {}) => {
     case GET_CONTEST_INFO.PENDING:
       return {
         ...state,
-        contest: {},
+        contestInfo: {},
         error: '',
         isPendingContest: true
       }
     case GET_CONTEST_INFO.SUCCESS:
+      console.log('action:', action)
+
       return {
         ...state,
-        contest: action.payload,
+        contestInfo: action.payload,
         error: '',
         isPendingContest: false
       }
@@ -52,6 +56,28 @@ const contestsReducer = (state = initialState, action = {}) => {
         ...state,
         error: action.payload,
         isPendingContest: false
+      }
+    case GET_CONTEST_POSTS.PENDING:
+      return {
+        ...state,
+        contestPosts: [],
+        error: '',
+        isPendingContestPosts: true
+      }
+    case GET_CONTEST_POSTS.SUCCESS:
+      console.log('action:', action)
+
+      return {
+        ...state,
+        contestPosts: action.payload,
+        error: '',
+        isPendingContestPosts: false
+      }
+    case GET_CONTEST_POSTS.ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isPendingContestPosts: false
       }
 
     default:

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Group, Avatar, Cell, Button } from '@vkontakte/vkui'
+import { Avatar, Cell, Button } from '@vkontakte/vkui'
 
 class UsersInfoItem extends Component {
   constructor (props) {
@@ -9,16 +9,18 @@ class UsersInfoItem extends Component {
     }
   }
 
-  goToUser = () => {
-    
+  goToUser = (e) => {
+    console.log('Go to user', this.props.user)
+    console.log('Event data: ', e)
+    this.props.go(e)
   }
 
   followUser = () => {
-    
+
   }
 
   unFollowUser = () => {
-    
+
   }
 
   render () {
@@ -29,15 +31,23 @@ class UsersInfoItem extends Component {
     } else if (avatar.indexOf('graph.facebook.com') > 0) {
       avatar = avatar.replace('=large', '=square')
     }
+
+    /* asideContent={user.isFollowing ?
+      <Button onClick={this.unFollowUser}>Отписаться</Button>
+      :
+      <Button onClick={this.followUser}>Читать</Button>} */
+
     return (<Cell
       id={user._id}
       className='user-info-item'
       before={<Avatar size={36} src={user.profile.image} />}
       description={user.profile.bio}
-      asideContent={user.isFollowing ? 
-        <Button onClick={this.unFollowUser}>Отписаться</Button>
-        :
-        <Button onClick={this.followUser}>Читать</Button>}
+      onClick={this.goToUser}
+      data-view='userpage'
+      data-panel='userpage'
+      data-userid={user._id}
+      data-username={user.username}
+      data-headertitle={user.profile.name}
     >
       {user.profile.name}
     </Cell>)

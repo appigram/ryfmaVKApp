@@ -4,6 +4,7 @@ import ReactGA from 'react-ga'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getPostContents } from '../../posts.action'
+import CommentsList from '../../../Comments/views/CommentsList'
 import UsersInfoItem from '../../../Users/views/UsersInfoItem'
 import Notification from '../../../../components/Notification/Notification'
 import Loader from '../../../../components/Loader'
@@ -31,6 +32,7 @@ class PostPage extends Component {
     console.log('componentWillMount PostPage')
     console.log('props: ', this.props)
     this.props.getPostContents({ postId: this.props.postId })
+    window.scrollTo(0, 0)
   }
 
 
@@ -146,7 +148,7 @@ class PostPage extends Component {
     const postViews = postInfo.viewCount || 0
     const postLiked = this.state.liked
 
-    return (
+    return (<>
       <Group>
         <Div className='post-page'>
           <h2>{postInfo.title}</h2>
@@ -198,9 +200,17 @@ class PostPage extends Component {
               </div>
             </div>
           </div>
-          {postInfo.author && <UsersInfoItem user={postInfo.author} isPost isShortBio />}
+          {postInfo.author && <UsersInfoItem user={postInfo.author} go={this.props.go} isPost isShortBio />}
         </Div>
       </Group>
+      <CommentsList
+        author={postInfo.author}
+        objectType='post'
+        objectId={postInfo._id}
+        title={postInfo.title}
+        commentsCount={postInfo.commentsCount}
+      />
+    </>
     )
   }
 }

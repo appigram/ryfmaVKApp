@@ -43,24 +43,44 @@ export const getUser = gql`
       isFollowing
       roles
       coins
-      rooms
       emails {
         verified
       }
+      roomId
+      isClassic
+      tariffs
+      currency
       profile {
         name
         firstname
         lastname
-        gender
-        birthday
         bio
-        locationStr
+        city
+        website
+        twitterUser
+        instagramUser
+        vkUser
+        facebookUser
+        invitesCount
         image
+        karma
+        badges {
+          url
+          image
+          desc
+        }
       }
       stats {
         postsCount
+        albumsCount
+        booksCount
         followersCount
         followingCount
+        bookshelvesCount
+        savedCount
+        strikeCount
+        strikePostsCount
+        levitanDownloads
       }
     }
   }
