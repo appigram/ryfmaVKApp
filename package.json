@@ -1,7 +1,7 @@
 {
   "name": "Ryfma",
   "version": "0.0.1",
-  "homepage": "https://appigram.github.com/ryfmaVKApp/",
+  "homepage": "https://appigram.github.io/ryfmaVKApp/",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -16,8 +16,8 @@
   "devDependencies": {
     "babel-eslint": "^10.0.1",
     "babel-plugin-transform-inline-environment-variables": "^0.4.3",
-    "gh-pages": "2.0.1",
     "cross-env": "^5.2.0",
+    "gh-pages": "^2.0.1",
     "react-hot-loader": "^4.6.3",
     "react-scripts": "^2.1.3",
     "standard": "^12.0.1"
