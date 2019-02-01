@@ -22,7 +22,7 @@ class Contests extends Component {
     console.log('componentWillMount')
     this.props.getFestivalsInfo({
       genreType: 'Все жанры',
-      sortType: 'newest',
+      sortType: 'mostPeople',
       location: 'worldwide'
     })
   }

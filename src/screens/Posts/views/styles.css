@@ -1,3 +1,7 @@
+.Group--ios:after, .Group--ios:before {
+  background: transparent;
+}
+
 .post-list-item .Div.content {
   padding-top: 0;
   padding-bottom: 0;
