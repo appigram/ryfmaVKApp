@@ -20,6 +20,9 @@ import PostPage from './screens/Posts/views/page/PostPage'
 import ContestPage from './screens/Contests/views/page/ContestPage'
 import UserPage from './screens/Users/views/page/UserPage'
 
+import PopularTagsList from './screens/Tags/views/PopularTagsList'
+import PaidUsersList from './screens/Users/views/PaidUsersList'
+
 // import Editor from './screens/Editor'
 // import UserProfile from './screens/UserProfile'
 // import About from './screens/About'
@@ -269,7 +272,10 @@ class App extends React.Component {
               <Root activeView='latest'>
                 <View id='latest' activePanel='latest'>
                   <Panel id='latest'>
-                    <PostsList go={this.go} type='latest' />
+                    {/* <img src='https://cdn.ryfma.com/defaults/icons/HomeBanner600.png' alt='Ryfma - стихи и книги, которые Вы полюбите' /> */}
+                    <PaidUsersList go={this.go} />
+                    <PopularTagsList go={this.go} />
+                    <PostsList go={this.go} type='latest' replaceFeed withImage />
                   </Panel>
                 </View>
               </Root>
@@ -278,7 +284,7 @@ class App extends React.Component {
               <Root activeView='latest'>
                 <View id='latest' activePanel='latest'>
                   <Panel id='latest'>
-                    <PostsList go={this.go} type='popular' duration={this.state.popularTab} />
+                    <PostsList go={this.go} type='popular' replaceFeed duration={this.state.popularTab} />
                   </Panel>
                 </View>
               </Root>

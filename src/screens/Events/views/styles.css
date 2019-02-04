@@ -1,0 +1,28 @@
+.Group.popular-tags .HorizontalScroll {
+  padding-left: 16px;
+}
+
+.Group.popular-tags .tag-item {
+  flex-shrink: 0;
+  margin-right: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 13px;
+}
+
+.Group.popular-tags .tag-item .tag-image {
+  width: 120px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.Group.popular-tags .tag-item .tag-name {
+  font-weight: bold;
+  margin: 4px 0;
+}
+
+.Group.popular-tags .tag-item img {
+  border-radius: 6px;
+  width: 100%;
+  height: 60px;
+}

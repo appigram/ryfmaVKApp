@@ -1,3 +1,7 @@
+.paid-users .Avatar {
+  margin-bottom: 6px;
+}
+
 .paid-users .Avatar .Avatar__children {
   padding: 14px;
   background-color: #FFBF30;
@@ -7,6 +11,17 @@
   height: 0!important;
   bottom: -14px;
   top: auto;
+}
+
+.paid-users .Avatar.medium-avatar .Avatar__children {
+  padding: 10px;
+  left: 35%;
+  bottom: -12px;
+}
+.paid-users .Avatar.medium-avatar .Avatar__children svg {
+  width: 16px;
+  height: 16px;
+  margin-top: 4px;
 }
 
 .get-started-block {

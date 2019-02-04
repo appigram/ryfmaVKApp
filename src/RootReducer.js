@@ -5,6 +5,7 @@ import searchReducer from './screens/Search/search.reducer'
 import usersReducer from './screens/Users/users.reducer'
 import contestsReducer from './screens/Contests/contests.reducer'
 import commentsReducer from './screens/Comments/comments.reducer'
+import tagsReducer from './screens/Tags/tags.reducer'
 
 // import { authReducer } from 'auth'
 // import { createMomentsReducer } from 'createMoments'
@@ -18,7 +19,8 @@ const appReducer = combineReducers({
   search: searchReducer,
   users: usersReducer,
   contests: contestsReducer,
-  comments: commentsReducer
+  comments: commentsReducer,
+  tags: tagsReducer
   /* app’s top-level reducers */
   // auth: authReducer,
   // createMoments: createMomentsReducer,

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getPosts } from '../posts.action'
@@ -13,7 +13,8 @@ class PostsList extends Component {
     super(props)
     this.state = {
       posts: [],
-      activeTab: 'latest',
+      activeType: 'latest',
+      activeDuration: 'day',
       lastType: props.type,
       duration: props.duration
     }
@@ -28,10 +29,10 @@ class PostsList extends Component {
     })
   }
 
-  fetchMorePosts = ({ activeTab, replaceFeed, skip }) => () => {
-    const { userId, albumId, tagId, festId, withImage, duration, personal, keyword, limit } = this.props
+  fetchMorePosts = ({ type, duration, replaceFeed, skip }) => () => {
+    const { type, userId, albumId, tagId, festId, withImage, personal, keyword, limit } = this.props
     this.props.getPosts({
-      type: activeTab,
+      type,
       userId,
       albumId,
       tagId,
@@ -45,7 +46,8 @@ class PostsList extends Component {
       skip,
       limit
     })
-    if (activeTab) this.setState({ activeTab })
+    if (type) this.setState({ activeType: type })
+    if (duration) this.setState({ activeDuration: duration })
   }
 
   render () {
@@ -55,26 +57,26 @@ class PostsList extends Component {
       <Tabs type='buttons'>
         <HorizontalScroll>
           <TabsItem
-            onClick={this.fetchMorePosts({ activeTab: 'latest', replaceFeed: true, skip: 0 })}
-            selected={this.state.activeTab === 'latest'}
+            onClick={this.fetchMorePosts({ type: 'latest', replaceFeed: true, skip: 0 })}
+            selected={this.state.activeType === 'latest'}
           >
             Последние
           </TabsItem>
           <TabsItem
-            onClick={this.fetchMorePosts({ activeTab: 'popular', replaceFeed: true, skip: 0 })}
-            selected={this.state.activeTab === 'popular'}
+            onClick={this.fetchMorePosts({ type: 'popular', replaceFeed: true, skip: 0 })}
+            selected={this.state.activeType === 'popular'}
           >
             Популярные
           </TabsItem>
           <TabsItem
-            onClick={this.fetchMorePosts({ activeTab: 'viewed', replaceFeed: true, skip: 0 })}
-            selected={this.state.activeTab === 'viewed'}
+            onClick={this.fetchMorePosts({ type: 'viewed', replaceFeed: true, skip: 0 })}
+            selected={this.state.activeType === 'viewed'}
           >
             Читаемые
           </TabsItem>
           <TabsItem
-            onClick={this.fetchMorePosts({ activeTab: 'commented', replaceFeed: true, skip: 0 })}
-            selected={this.state.activeTab === 'commented'}
+            onClick={this.fetchMorePosts({ type: 'commented', replaceFeed: true, skip: 0 })}
+            selected={this.state.activeType === 'commented'}
           >
             Комментируемые
           </TabsItem>
@@ -84,20 +86,20 @@ class PostsList extends Component {
 
     const activeTabs = (<Tabs theme="light">
       <TabsItem
-        onClick={this.fetchMorePosts({ activeTab: 'day', replaceFeed: true })}
-        selected={this.state.activeTab === 'day'}
+        onClick={this.fetchMorePosts({ type: 'popular', duration: 'day', replaceFeed: true })}
+        selected={this.state.activeDuration === 'day'}
       >
         За день
       </TabsItem>
       <TabsItem
-        onClick={this.fetchMorePosts({ activeTab: 'week', replaceFeed: true })}
-        selected={this.state.activeTab === 'week'}
+        onClick={this.fetchMorePosts({ type: 'popular', duration: 'week', replaceFeed: true })}
+        selected={this.state.activeDuration === 'week'}
       >
         За неделю
       </TabsItem>
       <TabsItem
-        onClick={this.fetchMorePosts({ activeTab: 'month', replaceFeed: true })}
-        selected={this.state.activeTab === 'month'}
+        onClick={this.fetchMorePosts({ type: 'popular', duration: 'month', replaceFeed: true })}
+        selected={this.state.activeDuration === 'month'}
       >
         За месяц
       </TabsItem>

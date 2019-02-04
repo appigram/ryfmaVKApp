@@ -1,5 +1,11 @@
 import gql from 'graphql-tag'
 
+export const getPopularTags = gql`
+  query getPopularTags($limit: Int) {
+    popularTags(limit: $limit)
+  }
+`
+
 export const insertTag = gql`
   mutation insertTag(
     $name: String!,

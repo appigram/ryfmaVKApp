@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getPosts } from '../../posts.action'
@@ -6,7 +6,7 @@ import Loader from '../../../../components/Loader'
 import PostsListItem from '../PostsListItem'
 import EmptyPosts from '../EmptyPosts'
 
-import { Root, View, Panel, List, Button, Div } from '@vkontakte/vkui'
+import { Group, List, Button, Div } from '@vkontakte/vkui'
 
 class LatestPosts extends Component {
   constructor (props) {
@@ -18,12 +18,16 @@ class LatestPosts extends Component {
 
   componentWillMount () {
     console.log('componentWillMount')
-    this.props.getPosts({type: 'latest', replaceFeed: true})
+    this.props.getPosts({
+      type: 'latest',
+      withImage: true,
+      replaceFeed: true
+    })
   }
 
   refetchData = () => {
     this.setState({refreshing: true})
-    this.props.getPosts({type: 'latest', force: true})
+    this.props.getPosts({type: 'latest', withImage: true, force: true})
     .then(() => {
       this.setState({
         refreshing: false,
@@ -35,7 +39,7 @@ class LatestPosts extends Component {
     const { latestPosts } = this.props
     this.props.getPosts({
       type: 'latest',
-      personal: false,
+      withImage: true,
       skip: latestPosts.length,
       limit: 15
     })
@@ -43,6 +47,10 @@ class LatestPosts extends Component {
 
   render () {
     const {latestPosts, isPendingLatestPosts} = this.props
+
+    if (isPendingLatestPosts) {
+      return <Loader />
+    }
 
     if (!latestPosts) {
       return (<EmptyPosts />)
@@ -53,25 +61,20 @@ class LatestPosts extends Component {
     }
 
     return (
-      <Root activeView='latest'>
-        <View id='latest' activePanel='latest'>
-          <Panel id='latest'>
-            <List>
-              {latestPosts.map(post =>
-                <PostsListItem
-                  key={post._id}
-                  post={post}
-                  go={this.props.go}
-                />
-              )}
-              {isPendingLatestPosts && <Loader />}
-              <Div>
-                <Button size="xl" level="secondary" onClick={this.fetchMorePosts}>Загрузить еще</Button>
-              </Div>
-            </List>
-          </Panel>
-        </View>
-      </Root>
+      <Group id='latest'>
+        <List>
+          {latestPosts.map(post =>
+            <PostsListItem
+              key={post._id}
+              post={post}
+              go={this.props.go}
+            />
+          )}
+          <Div>
+            <Button size="xl" level="secondary" onClick={this.fetchMorePosts}>Загрузить еще</Button>
+          </Div>
+        </List>
+      </Group>
     )
   }
 }

@@ -6,7 +6,7 @@ import Loader from '../../../../components/Loader'
 import PostsListItem from '../PostsListItem'
 import EmptyPosts from '../EmptyPosts'
 
-import { Root, View, Panel, List, Button, Div, Tabs, TabsItem } from '@vkontakte/vkui'
+import { Group, List, Button, Div, Tabs, TabsItem } from '@vkontakte/vkui'
 
 class LatestPosts extends Component {
   constructor (props) {
@@ -41,50 +41,50 @@ class LatestPosts extends Component {
   render () {
     const { bestPosts, isPendingBestPosts } = this.props
 
+    if (isPendingBestPosts) {
+      return <Loader />
+    }
+
     return (
-      <Root activeView='latest'>
-        <View id='latest' activePanel='latest'>
-          <Panel id='latest'>
-            <Tabs theme="light">
-              <TabsItem
-                onClick={this.changeTab('day')}
-                selected={this.state.activeTab === 'day'}
-              >
-                За день
-              </TabsItem>
-              <TabsItem
-                onClick={this.changeTab('week')}
-                selected={this.state.activeTab === 'week'}
-              >
-                За неделю
-              </TabsItem>
-              <TabsItem
-                onClick={this.changeTab('month')}
-                selected={this.state.activeTab === 'month'}
-              >
-                За месяц
-              </TabsItem>
-            </Tabs>
-            <List>
-              {bestPosts.length > 0 ?
-                bestPosts.map(post =>
-                  <PostsListItem
-                    key={post._id}
-                    post={post}
-                    go={this.props.go}
-                  />
-                )
-                :
-                <EmptyPosts />
-              }
-              {isPendingBestPosts && <Loader />}
-              {bestPosts.length > 0 && <Div>
-                <Button size="xl" level="secondary" onClick={this.fetchMorePosts}>Загрузить еще</Button>
-              </Div>}
-            </List>
-          </Panel>
-        </View>
-      </Root>
+      <Group id='popular'>
+        <Tabs theme="light">
+          <TabsItem
+            onClick={this.changeTab('day')}
+            selected={this.state.activeTab === 'day'}
+          >
+            За день
+          </TabsItem>
+          <TabsItem
+            onClick={this.changeTab('week')}
+            selected={this.state.activeTab === 'week'}
+          >
+            За неделю
+          </TabsItem>
+          <TabsItem
+            onClick={this.changeTab('month')}
+            selected={this.state.activeTab === 'month'}
+          >
+            За месяц
+          </TabsItem>
+        </Tabs>
+        <List>
+          {bestPosts.length > 0 ?
+            bestPosts.map(post =>
+              <PostsListItem
+                key={post._id}
+                post={post}
+                go={this.props.go}
+              />
+            )
+            :
+            <EmptyPosts />
+          }
+          {isPendingBestPosts && <Loader />}
+          {bestPosts.length > 0 && <Div>
+            <Button size="xl" level="secondary" onClick={this.fetchMorePosts}>Загрузить еще</Button>
+          </Div>}
+        </List>
+      </Group>
     )
   }
 }
