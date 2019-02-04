@@ -27,12 +27,14 @@ class PaidUsersList extends Component {
     })
   }
 
+  goToUser = (e) => {
+    console.log('Go to user', this.props.user)
+    console.log('Event data: ', e)
+    this.props.go(e)
+  }
+
   render () {
     const { paidUsers, isPendingPaidUsers } = this.props
-
-    if (isPendingPaidUsers) {
-      return <Loader />
-    }
 
     const itemStyle = {
       flexShrink: 0,
@@ -47,11 +49,20 @@ class PaidUsersList extends Component {
     }
 
     return (<Group style={{ paddingBottom: 8 }}>
-      <Header level='2'>Премиум-авторы</Header>
+      <Header level='2'>Премиум авторы</Header>
       <HorizontalScroll>
         <div style={{ display: 'flex' }} className='paid-users'>
-          {paidUsers.map(user => {
-            return <div style={{ ...itemStyle, paddingLeft: 4 }}>
+          {isPendingPaidUsers && <Loader />}
+          {!isPendingPaidUsers && paidUsers.map(user => {
+            return <div
+              style={{ ...itemStyle, paddingLeft: 4 }}
+              onClick={this.goToUser}
+              data-view='userpage'
+              data-panel='userpage'
+              data-userid={user._id}
+              data-username={user.username}
+              data-headertitle={user.profile.name}
+            >
               <Avatar src={user.profile.image} size={64} style={{ marginBottom: 8 }} className='medium-avatar'>
                 <Icon24Favorite fill='#FFFFFF' size={14} />
               </Avatar>

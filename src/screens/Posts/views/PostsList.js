@@ -51,7 +51,7 @@ class PostsList extends Component {
   }
 
   render () {
-    const { posts, isPendingPosts, type, userId, personal } = this.props
+    const { posts, isPendingPosts, type, userId, personal, subTitle } = this.props
 
     const userTabs = <Group>
       <Tabs type='buttons'>
@@ -105,7 +105,7 @@ class PostsList extends Component {
       </TabsItem>
     </Tabs>)
 
-    return (<Group>
+    return (<Group title={subTitle || ''}>
       {type === 'popular' && activeTabs}
       {userId && personal && userTabs}
       {(!posts || posts.length === 0) && <EmptyPosts />}

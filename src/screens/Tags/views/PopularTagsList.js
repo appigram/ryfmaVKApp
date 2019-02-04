@@ -22,67 +22,72 @@ class PopularTagsList extends React.Component {
   render () {
     const { popularTags, isPendingPopularTags } = this.props
 
-    if (isPendingPopularTags) {
-      return (<Loader />)
+    let tags = []
+    if (popularTags.length > 0) {
+      tags = popularTags.map(tag => {
+        if (
+          tag._id === 'Pqay8ZqcpBAXrxjGP' ||
+          tag._id === 'Wtd8LFGZRivNu3Dii' ||
+          tag._id === 'm8ddReksPMkG2sTAq'
+        ) return null
+
+        let tagName = tag.name
+
+        if (tag._id === 'uR29TLgWrvEJRv2PX') {
+          tagName = 'Стихи о жизни'
+        } else if (tag._id === 'Pqay8ZqcpBAXrxjGP') {
+          tagName = 'Стихи о любви'
+        } else if (tag._id === 'ZnDTJawrfgKXGhTE9') {
+          tagName = 'Лирика'
+        } else if (tag._id === 'FAG88rmdWg5Jmvd5Y') {
+          tagName = 'Стихи о войне'
+        } else if (tag._id === 'Tou7gKQG9zYjZ3pEC') {
+          tagName = 'Любовная лирика'
+        } else if (tag._id === 'Ka4y3Tg8Gk26qfzsw') {
+          tagName = 'Стихи любимому'
+        } else if (tag._id === 'S6Qjou3daD4HtSAJw') {
+          tagName = 'Чувственные стихи'
+        } else if (tag._id === '6CYGe5HrqT72ixHeE') {
+          tagName = 'Стихи о женщине'
+        } else if (tag._id === 'J4xMSfKe5kZyYK2NL') {
+          tagName = 'Стихи о душе'
+        }
+
+        return (
+          <div
+            key={tag._id}
+            className='tag-item'
+            onClick={this.props.go}
+            data-view='tagspage'
+            data-panel='tagspage'
+            data-tagid={tag._id}
+            data-tagname={tag.name}
+            data-headertitle={tag.name}
+          >
+            <div className='tag-image'>
+              <img src={tag.coverImg} />
+            </div>
+            <div className='tag-name'>
+              {tagName.replace('#', '')}
+            </div>
+          </div>
+        )
+      })
     }
 
-    if (popularTags.length === 0) {
-      return <EmptyTags />
-    }
-
-    const tags = popularTags.map(tag => {
-      if (
-        tag._id === 'Pqay8ZqcpBAXrxjGP' ||
-        tag._id === 'Wtd8LFGZRivNu3Dii' ||
-        tag._id === 'm8ddReksPMkG2sTAq'
-      ) return null
-
-      let tagName = tag.name
-
-      if (tag._id === 'uR29TLgWrvEJRv2PX') {
-        tagName = 'Стихи о жизни'
-      } else if (tag._id === 'Pqay8ZqcpBAXrxjGP') {
-        tagName = 'Стихи о любви'
-      } else if (tag._id === 'ZnDTJawrfgKXGhTE9') {
-        tagName = 'Лирика'
-      } else if (tag._id === 'FAG88rmdWg5Jmvd5Y') {
-        tagName = 'Стихи о войне'
-      } else if (tag._id === 'Tou7gKQG9zYjZ3pEC') {
-        tagName = 'Любовная лирика'
-      } else if (tag._id === 'Ka4y3Tg8Gk26qfzsw') {
-        tagName = 'Стихи любимому'
-      } else if (tag._id === 'S6Qjou3daD4HtSAJw') {
-        tagName = 'Чувственные стихи'
-      } else if (tag._id === '6CYGe5HrqT72ixHeE') {
-        tagName = 'Стихи о женщине'
-      } else if (tag._id === 'J4xMSfKe5kZyYK2NL') {
-        tagName = 'Стихи о душе'
-      }
-
-      return (
-        <div key={tag._id} className='tag-item'>
-          <div className='tag-image'>
-            <img src={tag.coverImg} />
-          </div>
-          <div className='tag-name'>
-            {tagName.replace('#', '')}
-          </div>
-        </div>
-      )
-    })
-
-    console.log('tags: ', tags)
     return (<Group className='popular-tags' style={{ paddingBottom: 8 }}>
       <Header level='2'>Популярные теги</Header>
       <HorizontalScroll>
-        <div style={{ display: 'flex' }}>
+        {isPendingPopularTags && <Loader />}
+        {!isPendingPopularTags && popularTags.length === 0}
+        {!isPendingPopularTags && <div style={{ display: 'flex' }}>
           {tags}
           <div key={0} className='tag-item'>
             <div className='tag-name' style={{ margin: '8px 16px' }}>
               <h3>Больше</h3>
             </div>
           </div>
-        </div>
+        </div>}
       </HorizontalScroll>
     </Group>)
   }

@@ -91,7 +91,7 @@ class App extends React.Component {
   }
 
   go = (e) => {
-    const { view, panel, postid, contestid, contestslug, userid, username, headertitle } = e.currentTarget.dataset
+    const { view, panel, postid, contestid, contestslug, userid, username, tagid, tagname, headertitle } = e.currentTarget.dataset
     const { activeStory, activeView, activeTab, activePanel } = this.state
     console.log('New params: ', e.currentTarget.dataset)
     let newState = {
@@ -137,6 +137,14 @@ class App extends React.Component {
         ...newState,
         userId: userid,
         username: username,
+      }
+    }
+
+    if (tagid) {
+      newState = {
+        ...newState,
+        tagId: tagid,
+        tagName: tagname,
       }
     }
 
@@ -346,6 +354,22 @@ class App extends React.Component {
               {this.state.headerModalTitle}
             </PanelHeader>
             <UserPage fetchedUser={fetchedUser} username={this.state.username} userId={this.state.userId} go={this.go} replaceFeed />
+          </Panel>
+        </View>
+        <View id='tagspage' activePanel={this.state.activePanel}>
+          <Panel id='tagspage'>
+            <PanelHeader
+              left={<HeaderButton onClick={this.returnTo}>{osname === IOS ? <Icon28ChevronBack /> : <Icon24Back />}</HeaderButton>}
+              addon={<HeaderButton onClick={this.returnTo}>Назад</HeaderButton>}
+            >
+              {this.state.headerModalTitle}
+            </PanelHeader>
+            <PostsList
+              go={this.go}
+              replaceFeed
+              tagId={this.state.tagId}
+              subTitle={'Стихи по тегу ' + this.state.tagName}
+            />
           </Panel>
         </View>
       </Root>
