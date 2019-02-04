@@ -106,10 +106,8 @@ export const getContest = gql`
         coordinates
         partners {
           name
-          brief
-          logoLink
+          image
           url
-          images
         }
       }
       curatorsData {
@@ -120,7 +118,7 @@ export const getContest = gql`
           image
           city
           vkUser
-        }        
+        }
       }
       juryData {
         _id

@@ -89,7 +89,7 @@ class ContestPage extends Component {
     const toDate = new Date(fest.toDate)
     const currUserId = fetchedUser ? fetchedUser._id : null
     const currUser = fetchedUser
-    const juryIds = fest.juryData.map(jury => jury._id)
+    const juryIds = fest.juryData ? fest.juryData.map(jury => jury._id) : []
     const isJury = juryIds.includes(currUserId)
 
     const maxChars = 412

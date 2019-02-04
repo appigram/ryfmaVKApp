@@ -8,7 +8,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import ApolloClient from 'apollo-client'
 import Accounts from 'meteor-react-apollo-accounts'
 
-const isDev = false // __DEV__
+const isDev = true // __DEV__
 
 const dataIdFromObject = result => {
   if (result.__typename) {
