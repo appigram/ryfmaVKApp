@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "b6628c25bb4fcde7a3dd",
+    "revision": "974c7b9cf0c2d3704265",
     "url": "/ryfmaVKApp/static/css/main.aace48e1.chunk.css"
   },
   {
-    "revision": "b6628c25bb4fcde7a3dd",
-    "url": "/ryfmaVKApp/static/js/main.b6628c25.chunk.js"
+    "revision": "974c7b9cf0c2d3704265",
+    "url": "/ryfmaVKApp/static/js/main.974c7b9c.chunk.js"
   },
   {
     "revision": "3136114546f7b410df72",
@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/ryfmaVKApp/static/js/runtime~main.1b69b78a.js"
   },
   {
-    "revision": "0bdc32e78991f7be27ae4be95a4e36e5",
+    "revision": "5cae4af3a824b5a84131b3d277952178",
     "url": "/ryfmaVKApp/index.html"
   }
 ];

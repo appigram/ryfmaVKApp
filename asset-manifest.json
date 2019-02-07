@@ -1,7 +1,7 @@
 {
   "main.css": "/ryfmaVKApp/static/css/main.aace48e1.chunk.css",
-  "main.js": "/ryfmaVKApp/static/js/main.b6628c25.chunk.js",
-  "main.js.map": "/ryfmaVKApp/static/js/main.b6628c25.chunk.js.map",
+  "main.js": "/ryfmaVKApp/static/js/main.974c7b9c.chunk.js",
+  "main.js.map": "/ryfmaVKApp/static/js/main.974c7b9c.chunk.js.map",
   "static/css/1.d8bbe98a.chunk.css": "/ryfmaVKApp/static/css/1.d8bbe98a.chunk.css",
   "static/js/1.31361145.chunk.js": "/ryfmaVKApp/static/js/1.31361145.chunk.js",
   "static/js/1.31361145.chunk.js.map": "/ryfmaVKApp/static/js/1.31361145.chunk.js.map",
@@ -10,6 +10,6 @@
   "static/css/main.aace48e1.chunk.css.map": "/ryfmaVKApp/static/css/main.aace48e1.chunk.css.map",
   "static/css/1.d8bbe98a.chunk.css.map": "/ryfmaVKApp/static/css/1.d8bbe98a.chunk.css.map",
   "index.html": "/ryfmaVKApp/index.html",
-  "precache-manifest.eaacbaa8af7ca1880c96a1a8142f09be.js": "/ryfmaVKApp/precache-manifest.eaacbaa8af7ca1880c96a1a8142f09be.js",
+  "precache-manifest.a3edd67d3adc8c17b26c273f29a2f3b1.js": "/ryfmaVKApp/precache-manifest.a3edd67d3adc8c17b26c273f29a2f3b1.js",
   "service-worker.js": "/ryfmaVKApp/service-worker.js"
 }
